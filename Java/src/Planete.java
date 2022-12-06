@@ -1,10 +1,10 @@
 
-public class Planete {
+public abstract class Planete {
     String nom;
     int diametre;
     int totalVisiteurs;
     Atmosphere atmosphere;
-    Vaisseau vaisseauAccoste;
+
     static String forme="Sphérique";
     static int nbPlanetesDecouvertes;
 

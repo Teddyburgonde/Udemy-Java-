@@ -1,24 +1,32 @@
-public class PlaneteTellurique extends Planete implements Habitable {
+public class PlaneteTellurique extends Planete  {
 
-    int totalVisiteurs = 0;
-    Vaisseau vaisseauAccoste;
-    public PlaneteTellurique(String nom) {
+    Vaisseau[] vaisseauxAccostes;
+
+    public PlaneteTellurique(String nom, int tailleBaie) {
         super(nom);
+        this.vaisseauxAccostes=new Vaisseau[tailleBaie];
     }
 
-    public Vaisseau accueillirVaisseau(Vaisseau vaisseau){
-        totalVisiteurs+=vaisseau.nbPassagers;
-
-        if (vaisseau instanceof  VaisseauDeGuerre){
-            ((VaisseauDeGuerre)vaisseau).desactiverArmes();
+    boolean restePlaceDisponible(){
+        for (int index =0; index< vaisseauxAccostes.length; index++){
+            if (vaisseauxAccostes[index]== null) {
+                return true;
+            }
         }
+        return false;
+    }
 
-        if (vaisseauAccoste == null) {
-            System.out.println("Aucun vaisseau ne s'en va.");
-        } else
-            System.out.println("Un vaisseau de type " + vaisseauAccoste.type + " doit s'en aller.");
-        Vaisseau vaisseauPrecedent= vaisseauAccoste;
-        vaisseauAccoste= vaisseau;
-        return vaisseauPrecedent;
+    public void accueillirVaisseau(Vaisseau vaisseau) {
+
+        if (vaisseau instanceof VaisseauDeGuerre) {
+            ((VaisseauDeGuerre) vaisseau).desactiverArmes();
+        }
+        totalVisiteurs = totalVisiteurs + vaisseau.nbPassagers;
+        for (int index = 0; index < vaisseauxAccostes.length; index++) {
+            if (vaisseauxAccostes[index] == null) {
+                vaisseauxAccostes[index] = vaisseau;
+                break;
+            }
+        }
     }
 }
